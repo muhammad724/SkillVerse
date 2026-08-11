@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: skillverse-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run db:generate
+    startCommand: npm run backend:start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: EXPRESS_PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: EXPRESS_API_URL
+        sync: false
+      - key: SENTRY_DSN
+        sync: false

@@ -1,0 +1,246 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  BOSS
+}
+
+enum MissionStatus {
+  LOCKED
+  AVAILABLE
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum SubmissionStatus {
+  DRAFT
+  SUBMITTED
+  PASSED
+  NEEDS_REVISION
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model User {
+  id            String            @id @default(cuid())
+  authId        String            @unique
+  username      String            @unique
+  email         String            @unique
+  fullName      String
+  bio           String?
+  headline      String?
+  phone         String?
+  gender        String?
+  location      String?
+  skills        String[]          @default([])
+  avatarUrl     String?
+  githubUrl     String?
+  linkedinUrl   String?
+  isPublic      Boolean           @default(true)
+  soundEnabled  Boolean           @default(true)
+  terminalTheme String            @default("aurora")
+  isAdmin       Boolean           @default(false)
+  xp            Int               @default(0)
+  level         Int               @default(1)
+  streak        Int               @default(0)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  careers       UserCareer[]
+  submissions   Submission[]
+  achievements  UserAchievement[]
+  activities    Activity[]
+  savedMissions SavedMission[]
+  assignedTasks TaskAssignment[]  @relation("TaskAssignee")
+  createdTasks  TaskAssignment[]  @relation("TaskCreator")
+
+  @@index([username, isPublic])
+}
+
+model Career {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  name        String
+  description String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  users       UserCareer[]
+  nodes       RoadmapNode[]
+  missions    Mission[]
+}
+
+model UserCareer {
+  id          String          @id @default(cuid())
+  userId      String
+  careerId    String
+  experience  ExperienceLevel
+  goal        String
+  weeklyHours Int
+  progress    Int             @default(0)
+  active      Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  career      Career          @relation(fields: [careerId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, careerId])
+  @@index([userId, active])
+}
+
+model RoadmapNode {
+  id             String    @id @default(cuid())
+  careerId       String
+  title          String
+  slug           String
+  description    String
+  position       Int
+  xpReward       Int       @default(0)
+  prerequisiteId String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  career         Career    @relation(fields: [careerId], references: [id], onDelete: Cascade)
+  missions       Mission[]
+
+  @@unique([careerId, slug])
+  @@index([careerId, position])
+}
+
+model Mission {
+  id               String               @id @default(cuid())
+  careerId         String
+  roadmapNodeId    String?
+  slug             String               @unique
+  title            String
+  description      String
+  scenario         String
+  difficulty       Difficulty
+  xpReward         Int
+  estimatedMinutes Int
+  boss             Boolean              @default(false)
+  status           MissionStatus        @default(AVAILABLE)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  career           Career               @relation(fields: [careerId], references: [id], onDelete: Cascade)
+  roadmapNode      RoadmapNode?         @relation(fields: [roadmapNodeId], references: [id], onDelete: SetNull)
+  requirements     MissionRequirement[]
+  submissions      Submission[]
+  savedBy          SavedMission[]
+  assignments      TaskAssignment[]
+
+  @@index([careerId, difficulty, status])
+}
+
+model TaskAssignment {
+  id           String    @id @default(cuid())
+  userId       String
+  missionId    String
+  assignedById String
+  note         String?
+  dueAt        DateTime?
+  completed    Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  user         User      @relation("TaskAssignee", fields: [userId], references: [id], onDelete: Cascade)
+  assignedBy   User      @relation("TaskCreator", fields: [assignedById], references: [id], onDelete: Cascade)
+  mission      Mission   @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, missionId])
+  @@index([userId, completed])
+}
+
+model MissionRequirement {
+  id        String   @id @default(cuid())
+  missionId String
+  text      String
+  position  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  mission   Mission  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@index([missionId, position])
+}
+
+model Submission {
+  id                String           @id @default(cuid())
+  userId            String
+  missionId         String
+  explanation       String?
+  githubUrl         String?
+  liveUrl           String?
+  criteriaCompleted Int              @default(0)
+  score             Int?
+  xpEarned          Int              @default(0)
+  feedback          Json?
+  status            SubmissionStatus @default(DRAFT)
+  startedAt         DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mission           Mission          @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([missionId, status])
+}
+
+model Achievement {
+  id          String            @id @default(cuid())
+  slug        String            @unique
+  name        String
+  description String
+  icon        String
+  xpReward    Int               @default(0)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  achievementId String
+  unlockedAt    DateTime    @default(now())
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId, unlockedAt])
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  xp        Int      @default(0)
+  metadata  Json?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model SavedMission {
+  id        String   @id @default(cuid())
+  userId    String
+  missionId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mission   Mission  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, missionId])
+  @@index([userId, createdAt])
+}

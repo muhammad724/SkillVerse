@@ -1,0 +1,15 @@
+export type Mission={id:string;title:string;description:string;difficulty:"Beginner"|"Intermediate"|"Advanced"|"Boss";xp:number;time:string;skill:string;status:"Completed"|"Current"|"Available"|"Locked"};
+export const missions:Mission[]=[
+{id:"build-a-responsive-landing-page",title:"Build a responsive landing page",description:"Turn a product brief into a polished, accessible experience.",difficulty:"Beginner",xp:100,time:"3h",skill:"HTML & CSS",status:"Completed"},
+{id:"add-form-validation",title:"Add production form validation",description:"Build friendly client and server validation with Zod.",difficulty:"Beginner",xp:100,time:"2h",skill:"TypeScript",status:"Completed"},
+{id:"fix-a-login-redirect-loop",title:"Fix a login redirect loop",description:"Debug an auth flow and protect private routes safely.",difficulty:"Intermediate",xp:250,time:"3h",skill:"Authentication",status:"Current"},
+{id:"create-a-rest-api",title:"Create a REST API",description:"Design validated route handlers with consistent errors.",difficulty:"Intermediate",xp:250,time:"5h",skill:"API Development",status:"Available"},
+{id:"build-authentication-with-protected-routes",title:"Authentication with protected routes",description:"Create a secure end-to-end session flow.",difficulty:"Advanced",xp:500,time:"8h",skill:"Authentication",status:"Available"},
+{id:"optimize-react-rendering",title:"Optimize React rendering",description:"Profile and remove expensive, unnecessary renders.",difficulty:"Advanced",xp:500,time:"5h",skill:"React",status:"Available"},
+{id:"write-automated-browser-tests",title:"Write automated browser tests",description:"Protect critical journeys with resilient tests.",difficulty:"Intermediate",xp:250,time:"4h",skill:"Testing",status:"Locked"},
+{id:"deploy-a-next-js-app",title:"Deploy a Next.js app",description:"Ship a production app with environment configuration.",difficulty:"Beginner",xp:100,time:"2h",skill:"Deployment",status:"Available"},
+{id:"design-a-reusable-component-system",title:"Design a reusable component system",description:"Document composable, accessible UI primitives.",difficulty:"Advanced",xp:500,time:"7h",skill:"UI Engineering",status:"Locked"},
+{id:"build-a-full-stack-dashboard",title:"Build a full-stack dashboard",description:"Boss mission: design, build, secure, test, and deploy.",difficulty:"Boss",xp:1000,time:"20h",skill:"Full-Stack",status:"Locked"}];
+export const achievements=["First Mission","First Deployment","Authentication Master","API Builder","Frontend Explorer","Backend Explorer","Seven-Day Streak","Five Missions Completed","Ten Missions Completed","Full-Stack Challenger","Bug Hunter","Testing Specialist"];
+export const roadmap=["HTML & CSS","JavaScript Fundamentals","Git & GitHub","TypeScript","React","Next.js","API Development","Authentication","Databases","Testing","Deployment","Advanced Project"];
+export const careers=["Frontend Developer","Backend Developer","Full-Stack Developer","QA Automation Engineer","UI/UX Developer","Figma Designer","Web Designer"];
