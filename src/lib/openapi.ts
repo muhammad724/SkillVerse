@@ -25,6 +25,7 @@ export const openApiDocument={
   "/api/admin/missions":{get:{tags:["Admin"],summary:"List career metadata for mission creation",security:bearer,responses},post:{tags:["Admin"],summary:"Create a career mission",security:bearer,requestBody:{required:true,content:{"application/json":{schema:{$ref:"#/components/schemas/MissionInput"}}}},responses}},
   "/api/admin/assignments":{post:{tags:["Admin"],summary:"Assign a mission to a learner",security:bearer,requestBody:{required:true,content:{"application/json":{schema:{$ref:"#/components/schemas/AssignmentInput"}}}},responses}},
   "/api/admin/submissions/{id}":{patch:{tags:["Admin"],summary:"Review a learner submission",security:bearer,parameters:[{name:"id",in:"path",required:true,schema:{type:"string"}}],responses}},
-  "/api/sentry-example":{post:{tags:["Monitoring"],summary:"Admin-only endpoint that captures a sample Sentry error",security:bearer,responses}}
+ "/api/sentry-example":{post:{tags:["Monitoring"],summary:"Admin-only endpoint that captures a sample Sentry error",security:bearer,responses}}
+  ,"/api/ai-mentor":{post:{tags:["Learner"],summary:"Chat with the authenticated learner's career-aware SkillVerse AI Mentor",security:bearer,requestBody:{required:true,content:{"application/json":{schema:{type:"object",properties:{messages:{type:"array",maxItems:12,items:{type:"object",properties:{role:{type:"string",enum:["user","assistant"]},content:{type:"string",maxLength:2000}}}}}}}}},responses}}
  }
 } as const;

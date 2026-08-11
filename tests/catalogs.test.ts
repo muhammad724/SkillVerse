@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { careerMissionCatalog } from "../src/lib/mission-catalog";
 import { careerRoadmaps } from "../src/lib/roadmap-catalog";
+import { mentorInstructions } from "../src/lib/ai-mentor";
 
 test("every supported career has unique missions and a roadmap", () => {
   const careers = Object.keys(careerMissionCatalog);
@@ -19,4 +20,12 @@ test("Frontend and Full-Stack careers include CSS-oriented learning", () => {
   const fullStackText = JSON.stringify(careerRoadmaps["Full-Stack Developer"]).toLowerCase();
   assert.match(frontendText, /css/);
   assert.match(fullStackText, /frontend|interface|ui/);
+});
+
+test("AI Mentor instructions include learner context and safety boundaries", () => {
+  const instructions=mentorInstructions({name:"Test Learner",career:"Frontend Developer",level:3,xp:1250});
+  assert.match(instructions,/Test Learner/);
+  assert.match(instructions,/Frontend Developer/);
+  assert.match(instructions,/do not invent/i);
+  assert.match(instructions,/guarantee employment/i);
 });

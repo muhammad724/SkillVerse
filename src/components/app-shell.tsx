@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Award, ChevronRight, ClipboardList, Command, Gamepad2, LayoutDashboard, LogOut, Map, Menu, Settings, Target, Terminal as TerminalIcon, User, X } from "lucide-react";
+import { Award, Bot, ChevronRight, ClipboardList, Command, Gamepad2, LayoutDashboard, LogOut, Map, Menu, Settings, Target, Terminal as TerminalIcon, User, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 
@@ -13,6 +13,7 @@ const nav = [
   ["/dashboard/missions", "Missions", Target],
   ["/dashboard/tasks", "Assigned Tasks", ClipboardList],
   ["/dashboard/games/css-grid", "CSS Grid Game", Gamepad2],
+  ["/dashboard/ai-mentor", "AI Mentor", Bot],
   ["/dashboard/achievements", "Achievements", Award],
   ["/dashboard/settings", "Settings", Settings],
 ] as const;
