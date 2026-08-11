@@ -1,0 +1,2 @@
+import Link from "next/link";import{ArrowLeft,Braces}from"lucide-react";import{SwaggerDocs}from"@/components/swagger-docs";
+export default function ApiDocs(){return <main className="api-docs-page"><header><div><div className="eyebrow">Developer reference</div><h1 className="heading"><Braces/>SkillVerse REST API</h1><p>Interactive OpenAPI documentation for the project’s important endpoints.</p></div><Link href="/" className="btn btn-ghost"><ArrowLeft size={16}/>Back to SkillVerse</Link></header><SwaggerDocs/></main>}

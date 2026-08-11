@@ -1,0 +1,9 @@
+export const careerRoadmaps:Record<string,string[]>={
+ "Frontend Developer":["Semantic HTML & Modern CSS","Responsive Layout Systems","JavaScript & Browser APIs","TypeScript for Interfaces","React Component Architecture","State, Data & Forms","Accessibility & Performance","Production Frontend Capstone"],
+ "Backend Developer":["Server & HTTP Fundamentals","API Design & Validation","Relational Data Modeling","Authentication & Authorization","Caching & Background Jobs","Testing & Observability","Scaling & Deployment","Production Backend Capstone"],
+ "Full-Stack Developer":["Web Platform Foundations","TypeScript Across the Stack","React Product Interfaces","Next.js Server Architecture","PostgreSQL & Data Modeling","Authentication & Secure APIs","Testing, Monitoring & Deployment","Full-Stack SaaS Capstone"],
+ "QA Automation Engineer":["Testing Foundations & Risk","Web UI Test Automation","API & Contract Testing","Test Data & Environments","CI Quality Pipelines","Performance & Accessibility Testing","Reliability Metrics & Reporting","Release Quality Capstone"],
+ "UI/UX Developer":["User-Centered Design Foundations","Information Architecture","Interaction & Responsive Patterns","Accessible Interface Design","Design Tokens & Components","Prototyping in Code","Usability Testing & Iteration","Inclusive Product Capstone"],
+ "Figma Designer":["Figma Tools & Visual Foundations","Auto Layout & Responsive Frames","Components, Variants & Properties","Variables, Tokens & Theming","User Flows & Wireframes","Interactive Prototyping","Design Systems & Developer Handoff","Product Design Portfolio Capstone"],
+ "Web Designer":["Visual Design & Composition","Typography & Color Systems","Responsive Grids & Layout","Information Architecture","Conversion-Focused Page Design","Ecommerce & Content Patterns","Prototyping, Testing & Handoff","Complete Website Redesign Capstone"]
+};
