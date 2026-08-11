@@ -10,7 +10,7 @@ SkillVerse is a full-stack career development platform that turns professional l
 - Admin console for users, missions, assignments, and project reviews
 - Public profiles with personal details, professional headline, contact information, skills, verified capabilities, achievements, and projects
 - Five-level interactive CSS Grid Arena for Frontend and Full-Stack learners
-- Career-aware SkillVerse AI Mentor with authenticated, server-side OpenAI Responses API integration
+- Career-aware SkillVerse AI Mentor with authenticated, server-side Groq integration and optional OpenAI fallback
 - Responsive dashboard navigation, command palette, and terminal interface
 - Next.js REST endpoints plus a modular Express API
 - OpenAPI 3 documentation with interactive Swagger UI
@@ -57,4 +57,4 @@ The Next.js APIs serve the main product. The Express service demonstrates a conv
 
 ```bash
 npm install
-```
+

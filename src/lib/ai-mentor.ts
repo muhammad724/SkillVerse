@@ -5,6 +5,24 @@ Mission timers can be started and stopped. Frontend and Full-Stack learners can 
 Important navigation: Overview shows progress; Roadmap shows the learning sequence; Missions contains practical challenges; Assigned Tasks contains admin work; CSS Grid Game is an interactive practice lab; Achievements shows rewards; Settings controls personal details, professional information, skills, links, privacy, and theme.
 `;
 
+export type AiProviderConfig = {
+  provider: "groq" | "openai";
+  apiKey: string;
+  model: string;
+  baseURL?: string;
+};
+
+export function resolveAiProvider(env: Record<string, string | undefined>): AiProviderConfig | null {
+  const requested=env.AI_PROVIDER?.trim().toLowerCase();
+  if((requested==="groq"||(!requested&&env.GROQ_API_KEY))&&env.GROQ_API_KEY){
+    return {provider:"groq",apiKey:env.GROQ_API_KEY,model:env.GROQ_MODEL||"llama-3.3-70b-versatile",baseURL:"https://api.groq.com/openai/v1"};
+  }
+  if(env.OPENAI_API_KEY){
+    return {provider:"openai",apiKey:env.OPENAI_API_KEY,model:env.OPENAI_MODEL||"gpt-5-mini"};
+  }
+  return null;
+}
+
 export function mentorInstructions(profile: { name:string; career:string; level:number; xp:number }) {
   return `You are SkillVerse AI Mentor, a concise and encouraging career coach inside the SkillVerse application.
 Answer questions about SkillVerse navigation, missions, roadmaps, project planning, portfolio evidence, career skills, and learning strategy.
