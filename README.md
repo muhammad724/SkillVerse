@@ -55,10 +55,6 @@ Express API (:5000)
 
 The Next.js APIs serve the main product. The Express service demonstrates a conventional modular REST backend and exposes documented mission administration endpoints without replacing existing application behavior.
 
-## Local setup
-
-Requirements: Node.js 20 or newer, npm, and a Supabase project.
-
 ```bash
 npm install
 ```
@@ -168,4 +164,3 @@ npm run db:seed-careers
 
 ## Current release status
 
-The application is portfolio and assignment ready. Production launch additionally requires rotated database credentials, a configured Sentry DSN, production environment variables, and authorized Vercel/Render deployments.
