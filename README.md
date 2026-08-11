@@ -10,7 +10,7 @@ SkillVerse is a full-stack career development platform that turns professional l
 - Admin console for users, missions, assignments, and project reviews
 - Public profiles with personal details, professional headline, contact information, skills, verified capabilities, achievements, and projects
 - Five-level interactive CSS Grid Arena for Frontend and Full-Stack learners
-- Career-aware SkillVerse AI Mentor with authenticated, server-side OpenAI Responses API integration
+- Career-aware SkillVerse AI Mentor with authenticated, server-side Groq integration and optional OpenAI fallback
 - Responsive dashboard navigation, command palette, and terminal interface
 - Next.js REST endpoints plus a modular Express API
 - OpenAPI 3 documentation with interactive Swagger UI
@@ -72,6 +72,9 @@ EXPRESS_PORT="5000"
 EXPRESS_API_URL=""
 SENTRY_DSN=""
 NEXT_PUBLIC_SENTRY_DSN=""
+AI_PROVIDER="groq"
+GROQ_API_KEY=""
+GROQ_MODEL="llama-3.3-70b-versatile"
 OPENAI_API_KEY=""
 OPENAI_MODEL="gpt-5-mini"
 ```
@@ -133,7 +136,7 @@ The test route is disabled outside development. DSNs and auth tokens are never h
 
 ## AI Mentor
 
-Add `OPENAI_API_KEY` to the server environment and optionally change `OPENAI_MODEL`. The key is used only by the protected `/api/ai-mentor` route and is never exposed through a `NEXT_PUBLIC_` variable. Authenticated learners can access the mentor at `/dashboard/ai-mentor`; conversations are limited to the most recent messages and stored only for the browser session.
+Set `AI_PROVIDER=groq`, add `GROQ_API_KEY`, and optionally change `GROQ_MODEL`. Groq is the preferred provider; if it is not explicitly selected, the route can fall back to `OPENAI_API_KEY` and `OPENAI_MODEL`. Keys are used only by the protected `/api/ai-mentor` route and are never exposed through a `NEXT_PUBLIC_` variable. Authenticated learners can access the mentor at `/dashboard/ai-mentor`; conversations are limited to the most recent messages and stored only for the browser session.
 
 ## Deployment
 
